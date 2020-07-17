@@ -19,8 +19,7 @@ def on_press(key):
 
 def write_log(fianl_log):
 	with open("tester.json", "w") as jf: 
-		json.dump(fianl_log, jf) 
-
+		json.dump(fianl_log, jf)
 
 
 def write_file(keys):
