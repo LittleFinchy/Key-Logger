@@ -8,7 +8,6 @@ count, keys = 0, []
 def on_press(key):
 	global keys, count
 	keys.append(key)
-	print(key)
 	count += 1
 
 	if count > 50 and 'space' in str(keys[-1]):
